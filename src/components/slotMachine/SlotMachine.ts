@@ -4,6 +4,7 @@ import { createSprite } from "../../utils";
 import { Reel } from '../reel/Reel';
 import { SlotMachineController } from "./SlotMachineController";
 
+const DISTANCE_BETWEEN_REELS = 520;
 export class SlotMachine extends Container {
     private _controller = new SlotMachineController(this);
     private _reelsBackground = createSprite('reels');
@@ -13,7 +14,16 @@ export class SlotMachine extends Container {
     constructor() {
         super();
 
+        //@ts-ignore
+        window.sm = this;
+
+        this.setupReelPosition();
+
         this._mount();
+    }
+
+    private setupReelPosition() {
+        this._reels.forEach((reel, index) => reel.position.x = index * DISTANCE_BETWEEN_REELS + 250);
     }
 
     private _mount() {
@@ -22,6 +32,7 @@ export class SlotMachine extends Container {
         this._reelsBackground.position.set(140, 100);
 
         this.addChild(this._reelsBackground);
+        this._reels.forEach(reel => this.addChild(reel));
 
     }
 }
