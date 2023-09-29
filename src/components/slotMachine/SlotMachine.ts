@@ -1,4 +1,5 @@
 
+import gsap from "gsap";
 import { Container } from "pixi.js";
 import { createSprite } from "../../utils";
 import { Reel } from '../reel/Reel';
@@ -20,6 +21,19 @@ export class SlotMachine extends Container {
         this.setupReelPosition();
 
         this._mount();
+    }
+
+    private start(): void {
+        this._reels.forEach((reel, index) => {
+            gsap.to({}, {
+                duration: 0.1 * index,
+                onComplete: () => reel.start()
+            });
+        });
+    }
+
+    private stop(): void {
+        this._reels.forEach(reel => reel.stop());
     }
 
     private setupReelPosition() {

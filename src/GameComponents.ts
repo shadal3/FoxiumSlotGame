@@ -1,10 +1,11 @@
 import { Container } from 'pixi.js';
 import { SlotMachine } from './components/slotMachine/SlotMachine';
+import { SpinButton } from './components/spinButton/__spinButton';
 
 
 export class GameComponents extends Container {
     private _slotMachine = new SlotMachine();
-    // private _spinButton = new SpinButton();
+    private _spinButton = new SpinButton();
     // private _counterPlate = new CounterPlate();
 
     constructor() {
@@ -15,6 +16,6 @@ export class GameComponents extends Container {
     }
 
     mount() {
-        this.addChild(this._slotMachine);
+        this.addChild(this._slotMachine, this._spinButton);
     }
 }
