@@ -31,7 +31,8 @@ const config = {
         new CopyWebpackPlugin({
             patterns: [
                 { from: `${PATHS.assets}img`, to: `${PATHS.assets}img`},
-                { from: `./css`, to: `./css`}
+                { from: `./css`, to: `./css`},
+                { from: `./results.json`, to: `./results.json`}
             ]
         })
     ],

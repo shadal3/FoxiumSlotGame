@@ -2,6 +2,7 @@ import '../css/main.css';
 
 import { Application, Assets } from 'pixi.js';
 import { GameRoot } from './GameRoot';
+import { GameWorkFlow } from './GameWorkFlow';
 
 const app = new Application<HTMLCanvasElement>({ width: 2048, height: 1080 });
 document.body.appendChild(app.view);
@@ -51,12 +52,12 @@ const logProgress = (res: number) => {
 }
 
 Assets.loadBundle('assets', logProgress).then(() => {
-    console.log("DONE")
-    console.log(Assets.cache.get('background'));
     app.stage.addChild(new GameRoot());
+    const gameWorkFlow = new GameWorkFlow();
 })
 
 animate();
+
 
 function animate() {
     requestAnimationFrame(animate);

@@ -1,0 +1,2 @@
+export const SYMBOLS_LIST = ['H1', 'H2', 'H3', 'H4', 'L1', 'L2', 'L3', 'L4', 'WILD'];
+export const BASE_REEL_SET = ['H1', 'H2', 'H3', 'H4', 'L1', 'L2', 'L3', 'L4', 'WILD','H1', 'H2', 'H3', 'H4', 'L1', 'L2', 'L3', 'L4', 'WILD','H1', 'H2'];

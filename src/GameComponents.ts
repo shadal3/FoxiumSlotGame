@@ -1,12 +1,13 @@
 import { Container } from 'pixi.js';
+import { CounterPlate } from './components/countup/Countup';
 import { SlotMachine } from './components/slotMachine/SlotMachine';
-import { SpinButton } from './components/spinButton/SpinButton';
+import { SpinPress } from './components/spinButton/SpinPress';
 
 
 export class GameComponents extends Container {
     private _slotMachine = new SlotMachine();
-    private _spinButton = new SpinButton();
-    // private _counterPlate = new CounterPlate();
+    private _spinButton = new SpinPress();
+    private _counterPlate = new CounterPlate();
 
     constructor() {
         super();
@@ -16,6 +17,6 @@ export class GameComponents extends Container {
     }
 
     mount() {
-        this.addChild(this._slotMachine, this._spinButton);
+        this.addChild(this._slotMachine, this._spinButton, this._counterPlate);
     }
 }

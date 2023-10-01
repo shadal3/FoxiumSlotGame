@@ -1,9 +1,18 @@
+import { PubSub } from 'typescript-pubsub';
 import { SlotMachine } from './SlotMachine';
 
 export class SlotMachineController {
+  private _component: SlotMachine;
+
   constructor(component: SlotMachine) {
-    // PubSub.subscribe('destroyCrystal', (msg, {row, col}) => {
-    //     component.destroyCrystal(row, col);
-    // })
+
+    this._component = component;
+
+    PubSub.subscribe('startSpinning', () => this._component.start())
+    PubSub.subscribe('stopSpinning', () => this._component.stop())
+  }
+
+  public emitSpinningStopped(): void {
+    PubSub.emit('spinningStopped', {});
   }
 }

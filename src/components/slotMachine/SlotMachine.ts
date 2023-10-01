@@ -1,15 +1,21 @@
 
 import gsap from "gsap";
 import { Container } from "pixi.js";
-import { createSprite } from "../../utils";
+import { BASE_REEL_SET } from "../../config";
+import { createSprite, shuffleArray } from '../../utils';
 import { Reel } from '../reel/Reel';
 import { SlotMachineController } from "./SlotMachineController";
 
 const DISTANCE_BETWEEN_REELS = 520;
 export class SlotMachine extends Container {
+
     private _controller = new SlotMachineController(this);
+
     private _reelsBackground = createSprite('reels');
-    private _reels = [...Array(3)].map(() => new Reel());
+
+    private _reels = [...Array(3)].map((_, index) => new Reel(index));
+
+    private _reelSets = [...Array(3)].map(() => shuffleArray(BASE_REEL_SET));
 
 
     constructor() {
@@ -19,11 +25,13 @@ export class SlotMachine extends Container {
         window.sm = this;
 
         this.setupReelPosition();
+        
+        this.updateReelSets();
 
         this._mount();
     }
 
-    private start(): void {
+    public start(): void {
         this._reels.forEach((reel, index) => {
             gsap.to({}, {
                 duration: 0.1 * index,
@@ -32,8 +40,12 @@ export class SlotMachine extends Container {
         });
     }
 
-    private stop(): void {
+    public stop(): void {
         this._reels.forEach(reel => reel.stop());
+    }
+
+    private updateReelSets(): void {
+        this._reels.forEach((reel, index) => reel.updateReelSet(this._reelSets[index]));
     }
 
     private setupReelPosition() {
