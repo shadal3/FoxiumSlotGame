@@ -8,7 +8,9 @@ export class SlotMachineController {
 
     this._component = component;
 
-    PubSub.subscribe('startSpinning', () => this._component.start())
+    PubSub.subscribe('startSpinning', () => {
+      this._component.start();
+    })
     PubSub.subscribe('stopSpinning', () => this._component.stop())
   }
 

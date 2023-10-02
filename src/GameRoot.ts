@@ -8,11 +8,7 @@ export class GameRoot extends Container {
 
     constructor() {
         super();
-
-        // elements
-        this._background = createSprite('background');
-        this._gameComponents = new GameComponents();
-
+        
         // mount
         this.mount();
     }

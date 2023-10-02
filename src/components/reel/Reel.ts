@@ -50,7 +50,7 @@ export class Reel extends Container {
     public stop() {
         this._isStopTriggered = true;
 
-        this._finalSymbols = [this.getNextSymbolFromReelSet()].concat(gameModel.getResult().reels[this._reelIndex]);
+        this._finalSymbols = (gameModel.getResult().reels[this._reelIndex]).concat([this.getNextSymbolFromReelSet()]);
 
         const subscription = this._lastRepeatSubject.pipe(filter(_ => _))
             .subscribe(() => {
@@ -72,14 +72,18 @@ export class Reel extends Container {
             duration: 10,
             ease: 'none',
             onUpdate: () => {
-                if (this._symbols[4].y > 1750 && this._symbols[4].isUpdated === false ) {
-                    this.updateShiftedSymbol(this._symbols[4]);
-                        
-                    this._symbols[4].isUpdated = true;
-
-                    this._symbols.unshift(this._symbols.pop());
-                }
                 this._symbols.forEach((symbol, index) => {
+
+                    if (symbol.y > 1750 && symbol.isUpdated === false ) {
+                        this.updateShiftedSymbol(symbol);
+                        
+                        symbol.isUpdated = true;
+
+                        console.log(this._symbols);
+
+                        //this._symbols.unshift(this._symbols.pop());
+                    }
+                    
                     const wrap = gsap.utils.wrap(0, 1750);
                     symbol.y = wrap(symbol.y);
                 });
@@ -95,8 +99,8 @@ export class Reel extends Container {
     }
 
     private updateShiftedSymbol(symbol: Symbol): void {
+        console.log(this._reelIndex, symbol.index);
         if (this._lastRepeatSubject.value) {
-            console.log(this._reelIndex, symbol.index);
             symbol.updateTexture(this._finalSymbols.pop());
         } else {
             symbol.updateTexture(this.getNextSymbolFromReelSet());
