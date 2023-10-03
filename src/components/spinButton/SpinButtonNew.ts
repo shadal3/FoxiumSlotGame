@@ -1,11 +1,12 @@
 
-import { Container, Graphics } from "pixi.js";
+import { Container, Graphics } from 'pixi.js';
+import { PubSub } from '../../PubSubPattern';
 import { createSprite } from '../../utils';
 import { SpinButtonController } from './SpinButtonController';
 
+export class SpinButton extends Container {
     private _spinButton = createSprite('button_spin');
     private _spinButtonHitArea = this.createHitAreaPolygon();
-
     private _controller = new SpinButtonController(this);
 
     constructor() {
@@ -19,6 +20,10 @@ import { SpinButtonController } from './SpinButtonController';
         this.addHitAreaListener();
         this.mount();
 
+    }
+
+    public emitSpinButtonPressed(): void {
+        PubSub.emit('spinButtonPressed', {});
     }
 
     public listenStartSpinButton(): void {

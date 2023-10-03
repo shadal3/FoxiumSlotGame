@@ -1,7 +1,7 @@
 import { Container } from 'pixi.js';
 import { CounterPlate } from './components/countup/Countup';
 import { SlotMachine } from './components/slotMachine/SlotMachine';
-import { SpinButton } from './components/spinButton/__SpinButton';
+import { SpinButton } from './components/spinButton/SpinButtonNew';
 
 
 export class GameComponents extends Container {

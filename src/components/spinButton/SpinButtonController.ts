@@ -1,5 +1,5 @@
 import { PubSub } from '../../PubSubPattern';
-import { SpinButton } from './__SpinButton';
+import { SpinButton } from './SpinButtonNew';
 
 export class SpinButtonController {
     private _component: SpinButton
