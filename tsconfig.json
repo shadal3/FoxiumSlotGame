@@ -2,11 +2,15 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
+    "typeRoots": ["./src/types", "./types"],
     "moduleResolution": "node",
     "sourceMap": true,
     "module": "es2022",
     "target": "es2022",
-    "allowJs": true
+    "allowJs": true,
   },
-  "files": ["src/index.ts"]
+  "files": ["src/index.ts"],
+  "include": [
+    "src/**/*"
+  ]
 }

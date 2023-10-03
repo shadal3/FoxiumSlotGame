@@ -16,18 +16,18 @@ app.view.style.height = window.innerHeight + "px";
 app.view.style.display = "block";
 
 const resizeHandler = () => {
-    //@ts-ignore
+    
     window.isPortrait = window.innerHeight > window.innerWidth;
-    //@ts-ignore
     window.globalScaleFactorX = app.renderer.width / window.innerWidth;
-    //@ts-ignore
     window.globalScaleFactorY = app.renderer.height / window.innerHeight;
+
+    console.log(window.globalScaleFactorX, window.globalScaleFactorY);
 
     app.view.style.width = window.innerWidth + "px";
     app.view.style.height = window.innerHeight + "px";
 };
 
-window.addEventListener('resize', resizeHandler, false);
+//window.addEventListener('resize', resizeHandler, false);
 
 //resizeHandler();
 

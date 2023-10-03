@@ -5,7 +5,7 @@ import { BehaviorSubject, filter } from 'rxjs';
 import gameModel from "../../model/GameModel";
 import { Symbol } from '../symbol/Symbol';
 
-const DISTANCE_BETWEEN_SYMBOLS = 350;
+const DISTANCE_BETWEEN_SYMBOLS = 550;
 export class Reel extends Container {
 
     private _symbols = [...Array(5)].map((_, index) => new Symbol(index));
@@ -47,7 +47,7 @@ export class Reel extends Container {
         this.updateTextures();
     }
 
-    public stop() {
+    public stop(resolve: any) {
         this._isStopTriggered = true;
 
         this._finalSymbols = (gameModel.getResult().reels[this._reelIndex]).concat([this.getNextSymbolFromReelSet()]);
@@ -56,11 +56,12 @@ export class Reel extends Container {
             .subscribe(() => {
                 this._loopTween.pause();
                 gsap.to(this._loopTween, {
-                    duration: 6,
+                    duration: 1,
                     progress: 1,
                     ease: 'power1.out',
                     onComplete: () => {
                         subscription.unsubscribe();
+                        resolve();
                     }
                 })
             })
@@ -68,13 +69,13 @@ export class Reel extends Container {
 
     private loopTween(): void {
         this._loopTween = gsap.to(this._symbols, {
-            y: "+=1750",
-            duration: 10,
+            y: "+=2750",
+            duration: 1,
             ease: 'none',
             onUpdate: () => {
                 this._symbols.forEach((symbol, index) => {
 
-                    if (symbol.y > 1750 && symbol.isUpdated === false ) {
+                    if (symbol.y > 2750 && symbol.isUpdated === false ) {
                         this.updateShiftedSymbol(symbol);
                         
                         symbol.isUpdated = true;
@@ -84,7 +85,7 @@ export class Reel extends Container {
                         //this._symbols.unshift(this._symbols.pop());
                     }
                     
-                    const wrap = gsap.utils.wrap(0, 1750);
+                    const wrap = gsap.utils.wrap(0, 2750);
                     symbol.y = wrap(symbol.y);
                 });
             },

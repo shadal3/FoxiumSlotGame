@@ -16,6 +16,8 @@ export class Symbol extends Container {
 
         this._index = index;
 
+        this.setupSize();
+
         this._mount();
     }
 
@@ -33,6 +35,11 @@ export class Symbol extends Container {
 
     public updateTexture(id: string): void {
         this._symbol.texture = Assets.cache.get(id);
+    }
+
+    private setupSize(): void {
+        this._symbol.width = 270;
+        this._symbol.height = 450;
     }
 
     private _mount() {

@@ -16,7 +16,7 @@ export class CounterPlate extends Container {
 
     private _plate = createSprite('counter');
     private _countupText = this.createText('0');
-    private _winText = this.createText('win');
+    private _winText = this.createText('win:');
     private _currencyText = this.createText('USD');
 
     private _controller = new CounterPlateController(this);
@@ -28,32 +28,39 @@ export class CounterPlate extends Container {
 
         this.positionElements();
 
-        this.position.set(100, 400);
+        this.position.set(840, 880);
 
         //@ts-ignore
         window.counter = this;
 
     }
 
-    private countup(target: number): void {
-        let amount = {amount: 0};
-        gsap.to(amount, {
-            amount: 0,
-            duration: 4,
-            ease: "power1.in",
-            stagger: {
-              each: 1.0,
-              onUpdate: () => {
-                console.log(amount.amount);
-                this._countupText.text = this.formatNumber(Math.ceil(amount.amount));
-              }
-            }
-          });
+    public reset(): void {
+        this._countupText.text = '';
+    }
 
+    public playCountup(target: number): void {
+        let value = { val: parseInt(this._countupText.text)};
+
+        gsap.to(value, {
+            duration: 3,
+            val: target,
+            roundProps: 'val',
+            onUpdate: () => {
+                this._countupText.text = this.formatNumber(value.val);
+            },
+            onComplete: () => {
+                this._controller.emitCountupCompleted();
+            }
+          })
     }
     
     private formatNumber(text: number): string {
-        return text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        const formattedNumber = (text / 100).toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          });
+        return formattedNumber;
     }
 
     private positionElements(): void {

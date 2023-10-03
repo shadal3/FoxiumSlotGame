@@ -7,12 +7,16 @@ export class CounterPlateController {
     constructor(component: CounterPlate) {
         this._component = component;
 
-        PubSub.subscribe('showCountup', () => {
-            //this._component.listenStartSpinButton();
+        PubSub.subscribe('showCountup', (target) => {
+            this._component.playCountup(target)
         });
+
+        PubSub.subscribe('spinButtonPressed', () => {
+            this._component.reset();
+        })
     }
 
-    public emitSpinButtonPressed(): void {
+    public emitCountupCompleted(): void {
         PubSub.emit('countupDone', {});
     }
 }

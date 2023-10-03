@@ -14,6 +14,9 @@ export class SpinPress extends Container {
         super();
 
         this._spinButtonHitArea.position.set(-60, 0);
+        this._spinButton.height = 230;
+        console.log(this._spinButton.height);
+        this.position.set(1610, 313);
 
         this.addHitAreaListener();
         this.mount();
@@ -25,11 +28,9 @@ export class SpinPress extends Container {
     }
 
     private addHitAreaListener(): void {
-        this._spinButtonHitArea.interactive = false;
+        this._spinButtonHitArea.interactive = true;
         this._spinButtonHitArea.alpha = 0;
-        this._spinButtonHitArea.on('click', () => {
-            this._controller.emitSpinButtonPressed();
-        })
+        this._spinButtonHitArea.on('touchstart', this._controller.emitSpinButtonPressed)
     }
 
     private createHitAreaPolygon(): Container {

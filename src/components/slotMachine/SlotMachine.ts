@@ -1,12 +1,13 @@
 
 import gsap from "gsap";
-import { Container } from "pixi.js";
+import { Container, Graphics } from "pixi.js";
+import { concatMap, from, take, toArray } from "rxjs";
 import { BASE_REEL_SET } from "../../config";
 import { createSprite, shuffleArray } from '../../utils';
 import { Reel } from '../reel/Reel';
 import { SlotMachineController } from "./SlotMachineController";
 
-const DISTANCE_BETWEEN_REELS = 520;
+const DISTANCE_BETWEEN_REELS = 323;
 export class SlotMachine extends Container {
 
     private _controller = new SlotMachineController(this);
@@ -16,6 +17,8 @@ export class SlotMachine extends Container {
     private _reels = [...Array(3)].map((_, index) => new Reel(index));
 
     private _reelSets = [...Array(3)].map(() => shuffleArray(BASE_REEL_SET));
+
+    private _slotMask = this.createMask();
 
 
     constructor() {
@@ -27,6 +30,8 @@ export class SlotMachine extends Container {
         this.setupReelPosition();
         
         this.updateReelSets();
+
+        this._mask = this._slotMask;
 
         this._mount();
     }
@@ -41,24 +46,50 @@ export class SlotMachine extends Container {
     }
 
     public stop(): void {
-        this._reels.forEach(reel => reel.stop());
+        const subscription = from(this._reels).pipe(
+            concatMap((reel: Reel) => {
+                return new Promise(resolve => reel.stop(resolve));
+            }),
+            take(3),
+            toArray()
+            ).subscribe(() => {
+            this._controller.emitSpinningStopped();
+            subscription.unsubscribe();
+        });
     }
 
     private updateReelSets(): void {
         this._reels.forEach((reel, index) => reel.updateReelSet(this._reelSets[index]));
     }
 
-    private setupReelPosition() {
-        this._reels.forEach((reel, index) => reel.position.x = index * DISTANCE_BETWEEN_REELS + 250);
+    private createMask(): Graphics {
+        var graphics = new Graphics();
+
+        graphics.alpha = 0.5;
+
+        graphics.beginFill(0xFFFF00);
+        graphics.lineStyle(1, 0xFF0000);
+        graphics.drawRect(575, 50, 950, 798);
+
+        return graphics;
+    }
+
+    private setupReelPosition(): void {
+        this._reels.forEach((reel, index) => {
+            reel.position.x = index * DISTANCE_BETWEEN_REELS + 590
+            reel.position.y = -210;
+        });
     }
 
     private _mount() {
-        this._reelsBackground.width = 1600;
+        this._reelsBackground.width = 1000;
         this._reelsBackground.height = 800;
-        this._reelsBackground.position.set(140, 100);
+        this._reelsBackground.position.set(550, 50);
 
         this.addChild(this._reelsBackground);
         this._reels.forEach(reel => this.addChild(reel));
+
+        this.addChild(this._slotMask);
 
     }
 }

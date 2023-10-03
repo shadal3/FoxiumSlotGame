@@ -14,5 +14,10 @@ export class GameWorkFlow {
         await gsap.delayedCall(3, () => GameModel.getNextResult()).then();
         PubSub.emit('stopSpinning');
         await new Promise(resolve => PubSub.subscribe('spinningStopped', () => resolve(1)));
+        if (GameModel.getResult().win > 0) {
+            PubSub.emit('showCountup', GameModel.getResult().win);
+            await new Promise(resolve => PubSub.subscribe('countupDone', () => resolve(1)));
+        }
+        this.runWorkFlow();
     }
 }
