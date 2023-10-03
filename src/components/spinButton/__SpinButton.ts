@@ -3,8 +3,6 @@ import { Container, Graphics } from "pixi.js";
 import { createSprite } from '../../utils';
 import { SpinButtonController } from './SpinButtonController';
 
-export class SpinPress extends Container {
-
     private _spinButton = createSprite('button_spin');
     private _spinButtonHitArea = this.createHitAreaPolygon();
 

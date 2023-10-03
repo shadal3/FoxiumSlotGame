@@ -1,4 +1,4 @@
-import { PubSub } from 'typescript-pubsub';
+import { PubSub } from '../../PubSubPattern';
 import { SlotMachine } from './SlotMachine';
 
 export class SlotMachineController {

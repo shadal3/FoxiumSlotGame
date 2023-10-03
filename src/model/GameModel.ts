@@ -9,8 +9,6 @@ interface MachineState {
 }
 
 let instance: GameModel;
-let gameModel: Readonly<GameModel>;
-
 
 export class GameModel {
     private _serverResponse: MachineState;

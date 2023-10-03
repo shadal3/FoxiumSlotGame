@@ -3,7 +3,6 @@ import { Assets, Container } from "pixi.js";
 import { SYMBOLS_LIST } from '../../config';
 import { createSprite, getRandomArrayElement } from '../../utils';
 
-
 export class Symbol extends Container {
     
     private _symbol = createSprite(getRandomArrayElement(SYMBOLS_LIST));

@@ -1,4 +1,4 @@
-import { PubSub } from 'typescript-pubsub';
+import { PubSub } from '../../PubSubPattern';
 import { CounterPlate } from './Countup';
 
 export class CounterPlateController {

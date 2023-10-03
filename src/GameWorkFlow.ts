@@ -1,6 +1,6 @@
 import gsap from "gsap";
-import { PubSub } from "typescript-pubsub";
 import GameModel from "./model/GameModel";
+import { PubSub } from "./PubSubPattern";
 
 export class GameWorkFlow {
     constructor() {

@@ -54,7 +54,7 @@ const logProgress = (res: number) => {
 
 Assets.loadBundle('assets', logProgress).then(() => {
     app.stage.addChild(new GameRoot());
-    const gameWorkFlow = new GameWorkFlow();
+    new GameWorkFlow();
 })
 
 animate();

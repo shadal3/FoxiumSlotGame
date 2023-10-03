@@ -1,10 +1,10 @@
-import { PubSub } from 'typescript-pubsub';
-import { SpinPress } from './SpinPress';
+import { PubSub } from '../../PubSubPattern';
+import { SpinButton } from './__SpinButton';
 
 export class SpinButtonController {
-    private _component: SpinPress
+    private _component: SpinButton
 
-    constructor(component: SpinPress) {
+    constructor(component: SpinButton) {
         this._component = component;
 
         PubSub.subscribe('listenStartSpinButton', () => {
