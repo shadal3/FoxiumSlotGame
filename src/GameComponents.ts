@@ -12,20 +12,21 @@ export class GameComponents extends Container {
     constructor() {
         super();
 
-        //this.resizeGame();
+        this.resizeGame();
 
         // mount
         this.mount();
     }
 
     private resizeGame() {
-       // window.addEventListener('resize', this.resizeHandler.bind(this, this, 1));
-        //this.resizeHandler(this, 1);
+        window.addEventListener('resize', this.resizeHandler.bind(this, this, 1));
+        this.resizeHandler(this, 1);
     }
 
     private resizeHandler(container: Container, baseScale: number) {
-        //this.position.set(window.renderer.width * 0, window.renderer.height * 0.1);
-        this.generalResizeHandler(container, baseScale);
+        console.log(window.innerWidth);
+        //this.position.set(window.innerWidth / 30, window.renderer.height / 4);
+        //this.generalResizeHandler(container, baseScale);
     }
 
     private generalResizeHandler(container: Container, baseScale: number) {
@@ -37,16 +38,16 @@ export class GameComponents extends Container {
             recoveredScaleY
         );
 
-        let shrinkScale = !window.isPortrait
-            ? this.calculateShrinkScale(0, 630)
-            : this.calculateShrinkScale(650, 0);
+        // let shrinkScale = !window.isPortrait
+        //     ? this.calculateShrinkScale(0, 630)
+        //     : this.calculateShrinkScale(650, 0);
 
-        if (shrinkScale != null) {
-            container.scale.set(
-                recoveredScaleX * shrinkScale,
-                recoveredScaleY * shrinkScale
-            )
-        }
+        // if (shrinkScale != null) {
+        //     container.scale.set(
+        //         recoveredScaleX * shrinkScale,
+        //         recoveredScaleY * shrinkScale
+        //     )
+        // }
     };
 
     private calculateShrinkScale(widthBorder: number, heightBorder: number) {

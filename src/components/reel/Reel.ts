@@ -25,9 +25,6 @@ export class Reel extends Container {
     constructor(reelIndex: number) {
         super();
 
-        //@ts-ignore
-        window.reel = this;
-
         this._reelIndex = reelIndex;
 
         this.scale.y = 0.5;
@@ -73,16 +70,11 @@ export class Reel extends Container {
             duration: 1,
             ease: 'none',
             onUpdate: () => {
-                this._symbols.forEach((symbol, index) => {
+                this._symbols.forEach((symbol) => {
 
                     if (symbol.y > 2750 && symbol.isUpdated === false ) {
                         this.updateShiftedSymbol(symbol);
-                        
                         symbol.isUpdated = true;
-
-                        console.log(this._symbols);
-
-                        //this._symbols.unshift(this._symbols.pop());
                     }
                     
                     const wrap = gsap.utils.wrap(0, 2750);
@@ -100,7 +92,6 @@ export class Reel extends Container {
     }
 
     private updateShiftedSymbol(symbol: Symbol): void {
-        console.log(this._reelIndex, symbol.index);
         if (this._lastRepeatSubject.value) {
             symbol.updateTexture(this._finalSymbols.pop());
         } else {

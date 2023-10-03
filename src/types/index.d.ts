@@ -1,3 +1,5 @@
+import { IRenderer } from "pixi.js";
+
 export { };
 
 declare global {
@@ -5,6 +7,6 @@ declare global {
     isPortrait: boolean;
     globalScaleFactorX: number;
     globalScaleFactorY: number;
-    renderer: any;
+    renderer: IRenderer<HTMLCanvasElement>;
   }
 }

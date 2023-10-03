@@ -20,6 +20,7 @@ const resizeHandler = () => {
     window.isPortrait = window.innerHeight > window.innerWidth;
     window.globalScaleFactorX = app.renderer.width / window.innerWidth;
     window.globalScaleFactorY = app.renderer.height / window.innerHeight;
+    window.renderer = app.renderer;
 
     console.log(window.globalScaleFactorX, window.globalScaleFactorY);
 
@@ -27,9 +28,9 @@ const resizeHandler = () => {
     app.view.style.height = window.innerHeight + "px";
 };
 
-//window.addEventListener('resize', resizeHandler, false);
+window.addEventListener('resize', resizeHandler, false);
 
-//resizeHandler();
+resizeHandler();
 
 Assets.addBundle('assets', {
     'background': './assets/img/bg.jpg',
